@@ -1,5 +1,6 @@
 import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import User from "App/Models/User";
+import Category from "App/Models/Category";
 
 export default class AuthController {
   //login e logout
@@ -33,17 +34,31 @@ export default class AuthController {
       return response.status(400).json({ error: "Email already exists" });
     } */
     //criar o usuário
+    console.log(data);
+
     await User.create(data).catch(() => {
       return response
         .status(400)
         .json({ error: "O seu email, já foi cadastrado" });
     });
-    //poderia usar o try catch aqui
+    //vamos criar uma categoria padrão para o usuário
 
     //fazer o login do usuário
     const token = await auth.attempt(data.email, data.password, {
       expiresIn: "30 days",
     });
+    console.log(token);
+
+    //criar a categoria padrão
+    if (token) {
+      const user = auth.user!;
+      const category = await Category.create({
+        title: "Sem categoria",
+        color: "#000000",
+        userId: user.id,
+      });
+      console.log(category);
+    }
     return token;
   }
 }

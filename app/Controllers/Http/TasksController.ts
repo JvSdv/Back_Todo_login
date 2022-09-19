@@ -1,5 +1,5 @@
 import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
-import Database from "@ioc:Adonis/Lucid/Database";
+/* import Database from "@ioc:Adonis/Lucid/Database"; */
 import Category from "App/Models/Category";
 import Task from "App/Models/Task";
 import { Knex } from "knex";

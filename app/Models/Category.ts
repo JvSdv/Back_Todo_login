@@ -8,6 +8,7 @@ import {
 } from "@ioc:Adonis/Lucid/Orm";
 import User from "./User";
 import Task from "./Task";
+import { DateTime } from "luxon";
 
 export default class Category extends BaseModel {
   public static table: string = "categories";
@@ -32,9 +33,9 @@ export default class Category extends BaseModel {
   @hasMany(() => Task, { foreignKey: "categoryId", localKey: "id" })
   public tasks: HasMany<typeof Task>;
 
-  /* @column.dateTime({ autoCreate: true })
+  @column.dateTime({ autoCreate: true })
   public createdAt: DateTime;
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
-  public updatedAt: DateTime; */
+  public updatedAt: DateTime;
 }
